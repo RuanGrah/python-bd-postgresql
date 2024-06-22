@@ -46,23 +46,17 @@ def menu_categoria(opcao):
 
     conexao = conecta_db()
 
-    while True :
-        opcao = input("Escolha uma Opção: ")
-
-        if opcao == "1":
-            consultar(conexao)
+    while True:
+        opcao = input("Escolha uma opção:")
+        if opcao == "1":    
+            consultar(opcao)
         elif opcao == "2":
-            inserir(conexao)
-            print("--Categoria Inserida com sucesso--)")
+            inserir(opcao)
         elif opcao == "3":
-            alterar(conexao)
-            print("--Alteração feita com sucesso--")
+            alterar(opcao)
         elif opcao == "4":
-            deletar(conexao)
-            print("--Categoria deletada com sucesso--")
+            deletar(opcao)
         elif opcao == "5":
             break
-        else :
-            print ("Opção invalida, tente novamente")
-        
-            
+        else:
+            print("Opção invalida, tente novamente")
