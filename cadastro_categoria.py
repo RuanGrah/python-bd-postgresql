@@ -27,7 +27,6 @@ def alterar(conexao):
 def deletar(conexao):
     cursor = conexao.cursor()
     id = input("Informe o ID: ")
-    nome_categoria = input("Digite o nome da categoria: ")
     sql_update = "delete from categoria where id = " + id 
     cursor.execute(sql_update)
     conexao.commit()
@@ -49,11 +48,11 @@ def menu_categoria(opcao):
     while True:
         opcao = input("Escolha uma opção:")
         if opcao == "1":    
-            consultar(opcao)
+            consultar(conexao)
         elif opcao == "2":
-            inserir(opcao)
+            inserir(conexao)
         elif opcao == "3":
-            alterar(opcao)
+            alterar(conexao)
         elif opcao == "4":
             deletar(opcao)
         elif opcao == "5":

@@ -1,5 +1,6 @@
 from cadastro_categoria import menu_categoria
 from cadastro_produto import menu_produto
+from cadastro_cliente import menu_cliente
 
 
 if __name__ == "__main__": 
@@ -22,9 +23,8 @@ if __name__ == "__main__":
             menu_categoria(opcao)
         elif opcao == "2":
             menu_produto(opcao)
-            print("--Categoria Inserida com sucesso--)")
         elif opcao == "3":
-            print("Ainda não foi implementado")
+            menu_cliente(opcao)
         elif opcao == "4":
              print("Ainda não foi implementado")
         elif opcao == "5":
