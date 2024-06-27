@@ -2,27 +2,50 @@ from conexao import conecta_db
 
 def consultar(conexao):
     cursor = conexao.cursor()
-    cursor.execute("select id,descricao,preco,estoque from produto")
+    cursor.execute("select p.id, p.descricao, p.preco, p.estoque, categoria.nome from produto p " +
+                   "inner join categoria on (p.categoria_id = categoria.id)")
     registros = cursor.fetchall()
-    print("|-------------------------------|")
-    print("| ID   | Descrição      |Preço  |")
-    print("|-------------------------------|")
+    print("|--------------------------------------------------------------|")
+    print("| ID   | Descrição      |Preço           |Estoque   |Categoria |")
+    print("|--------------------------------------------------------------|")
 
     for registro in registros:
-        print(f"|{+registro[0]}    | {registro[1]}   |{registro[2]}| ")
-    print("|-------------------------------|")
+        print(f"|{+registro[0]}    | {registro[1]}   |{registro[2]}| {registro[3]}| {registro[4]}| ")
+    print("|--------------------------------------------------------------|")
 
 def inserir(conexao):
     cursor = conexao.cursor()
     descricao = input("Digite a descrição do produto: ")
     preco = float(input("Digite o preço do produto: "))
     estoque = float(input("Digite a quantida do produto em estoque: "))
+    categoria_id = int(input("Digite o id da categoria: "))
     
-    sql_insert = "insert into produto (descricao,preco,estoque) values (%s,%s,%s)"
-    dados = (descricao, preco, estoque)
+    sql_insert = "insert into produto (descricao,preco,estoque,categoria_id) values (%s,%s,%s,%s)"
+    dados = (descricao, preco, estoque, categoria_id)
     
     cursor.execute(sql_insert, dados)
     conexao.commit() 
+
+def update (conexao):
+    cursor = conexao.cursor()
+    id = input("Informe o ID: ")
+    descricao = input("Digite a descrição do produto: ")
+    preco = float(input("Digite o preço do produto: "))
+    estoque = float(input("Digite o estoque desse produto: "))
+    categoria_id = int(input("Digite o id da categoria: "))
+    
+    sql_update = "update produto set descricao = %s, preco = %s, estoque = %s, categoria_id = %s where id = %s"
+    dados = (descricao, preco, estoque,categoria_id, id)
+    cursor.execute(sql_update, dados)
+    conexao.commit()
+
+def delete(conexao):
+    cursor = conexao.cursor()
+    id = input("Informe o ID: ")
+    sql_update = "delete from produto where id = " + id 
+    cursor.execute(sql_update)
+    conexao.commit()
+
 
 
 def menu_produto(opcao):
@@ -47,9 +70,11 @@ def menu_produto(opcao):
             inserir(conexao)
             print("Produto inserido com sucesso")
         elif opcao == "3":
-            print("Não foi implementado")
+            update(conexao)
+            print("Update feito com sucesso")
         elif opcao == "4":
-            print("Não foi implementado")
+            delete(conexao)
+            print("Produto deletado com sucesso")
         elif opcao == "5":
             break
         else:
