@@ -1,6 +1,7 @@
 from cadastro_categoria import menu_categoria
 from cadastro_produto import menu_produto
 from cadastro_cliente import menu_cliente
+from cadastro_usurario import menu_usuario
 from conexao import conecta_db
 
 
@@ -28,7 +29,8 @@ def menu_principal():
     print("|     2 - Produto              |")
     print("|     3 - Cliente              |")
     print("|     4 - Venda                |")
-    print("|     5 - Sair do Sistema      |")
+    print("|     5 - Usuario              |")
+    print("|     6 - Sair do Sistema      |")
     print("|------------------------------|")
 
   
@@ -45,6 +47,8 @@ def menu_principal():
         elif opcao == "4":
              print("Ainda não foi implementado")
         elif opcao == "5":
+             menu_usuario(opcao)
+        elif opcao == "6":
             break
         else :
             print ("Opção invalida, tente novamente")
