@@ -1,7 +1,8 @@
 from cadastro_categoria import menu_categoria
 from cadastro_produto import menu_produto
 from cadastro_cliente import menu_cliente
-from cadastro_usurario import menu_usuario
+from cadastro_usuario import menu_usuario
+from vendas import menu_vendas
 from conexao import conecta_db
 
 
@@ -10,18 +11,19 @@ def login(conexao) -> None:
     senha = input("Digite a senha: ")
 
     cursor = conexao.cursor()
-    cursor.execute("select id,login,senha from usuario where login = %s and senha = %s", (login,senha))
-    registros = cursor.fetchone()
+    cursor.execute("select id,login,senha,admin from usuario where login = %s and senha = %s", (login,senha))
+    registro = cursor.fetchone()
 
-    if registros is None:
+    if registro is None:
         print("Usuario ou senha invalidos")
     else:
-        menu_principal()
+        admin = registro[3]
+        menu_principal(admin)
         
 
 
 
-def menu_principal():
+def menu_principal(admin):
     print("|------------------------------|")
     print("|       Menu  ->  Categoria    |")
     print("|------------------------------|")
@@ -45,9 +47,9 @@ def menu_principal():
         elif opcao == "3":
             menu_cliente(opcao)
         elif opcao == "4":
-             print("Ainda não foi implementado")
+             menu_vendas(opcao)
         elif opcao == "5":
-             menu_usuario(opcao)
+             menu_usuario(opcao,admin)
         elif opcao == "6":
             break
         else :
