@@ -1,5 +1,6 @@
 from conexao import conecta_db 
 
+
 def consultar(conexao):
     cursor = conexao.cursor()
     cursor.execute("select id,login from usuario")
@@ -69,8 +70,8 @@ def menu_usuario_admin(opcao):
         elif opcao == "4":
             delete(conexao)
             print("Usuario deletado com sucesso")
-        elif opcao == "5":
-            break
+        elif opcao == "5":   
+            break   
         else:
             print("Opção invalida, tente novamente")
 
